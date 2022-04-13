@@ -17,6 +17,7 @@ export const updatePersonalSection = async (data) => {
 
 export const updateEducationInResume = async (data, type) => {
   const resumeData = (await api.get("/resume")).data;
+  resumeData.education = resumeData.education || [];
   if (type == "add") {
     resumeData.education.push({ id: Math.floor(Math.random() * 1000), ...data });
   }

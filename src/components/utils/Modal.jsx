@@ -25,13 +25,8 @@ const Modal = ({ children, isOpen, onClose }) => {
     onClose();
   }
 
-  // Alternative way if e.stopPropagation() is not used
-  // const checkOutsideAndCloseModal = e => {
-  //   if (modalRef.current.contains(e.target)) return;
-  //   onClose();
-  // }
-
-  const closeModal = e => {
+  const checkOutsideAndCloseModal = e => {
+    if (modalRef.current.contains(e.target)) return;
     onClose();
   }
 
@@ -47,8 +42,8 @@ const Modal = ({ children, isOpen, onClose }) => {
   return (
     <>
       <Portal>
-        <div className={`fixed z-[1000] ${wrapperClasses()} overflow-hidden flex items-center justify-center bg-black bg-opacity-30`} onClick={closeModal}>
-          <div ref={modalRef} className={`absolute z-[1000] overflow-auto transition duration-500 ease-out ${modalClasses()} bg-white rounded-sm shadow-lg`} onMouseDown={e => e.stopPropagation()} onClick={e => e.stopPropagation()}>
+        <div className={`fixed z-[1000] ${wrapperClasses()} overflow-hidden flex items-center justify-center bg-black bg-opacity-30`} onClick={checkOutsideAndCloseModal}>
+          <div ref={modalRef} className={`absolute z-[1000] overflow-auto transition duration-500 ease-out ${modalClasses()} bg-white rounded-sm shadow-lg`}>
             <button className='absolute top-4 right-4 hover:bg-gray-200 w-8 h-8 flex items-center justify-center' onClick={onClose}>
               <span><i className="fa-solid fa-close"></i></span>
             </button>
